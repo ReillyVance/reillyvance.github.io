@@ -1,0 +1,47 @@
+expression = log_or
+
+log_or = log_or || log_and
+    |   log_or
+
+log_and = log_and && compare
+    |   log_and
+
+compare = compare == ord
+    |   compare != ord
+    |   ord
+
+ord = ord <= bit_xor_or
+    | ord >= bit_xor_or
+    | ord < bit_xor_or
+    | ord > bit_xor_or
+    | bit_xor_or
+
+bit_xor_or = bit_xor_or ^ bit_and
+    | bit_and
+
+bit_and = bit_and & bit_shift
+    | bit_shift
+
+bit_shift = bit_shift << add
+    | bit_shift >> add
+    | add
+
+
+add = add + mult
+    | add - mult
+    | mult
+
+mult = mult * exponent
+    | mult / exponent
+    | mult % exponent
+    | exponent
+
+exponent = exponent ** unary
+    | unary
+
+unary = !atom
+    |   ~atom
+    |   (atom) atom
+    |   atom
+
+atom = BOOL | INT | FLOAT | STRING
